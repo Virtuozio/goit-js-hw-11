@@ -1,30 +1,33 @@
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import PixabayApiService from './pixabayApiService';
 
-import { default as axios } from 'axios';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const form = document.getElementById('search-form');
 const gallery = document.querySelector('.gallery');
+const pixabayApiService = new PixabayApiService();
+console.log(pixabayApiService);
 form.addEventListener('submit', onSubmit);
-async function fetchGallery(name) {
-  const URL = `https://pixabay.com/api/?key=33738430-b2852a5207ef083e62f684e4b&q=${name}&image_type=photo&orientation=horizontal&safesearch=true`;
-  return await axios.get(URL).then(({ data }) => {
-    return data;
-  });
+
+async function fetchGallery() {
+  try {
+    const hits = await pixabayApiService.getNews();
+    console.log('🚀 ~ hits', hits);
+    if (hits.length === 0) throw new Error('No data');
+    const card = hits.reduce((markup, hit) => createGallery(hit) + markup, '');
+    updateGallery(card);
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 function onSubmit(e) {
-  const inputValue = form.elements.searchQuery.value;
   e.preventDefault();
+
+  const inputValue = form.elements.searchQuery.value;
+
+  pixabayApiService.searchQuery = inputValue;
   clearAll();
-  fetchGallery(inputValue)
-    .then(({ hits }) => {
-      const card = hits.reduce(
-        (markup, hit) => createGallery(hit) + markup,
-        ''
-      );
-      updateGallery(card);
-    })
-    .catch(onError);
+  fetchGallery().finally(() => form.reset());
 }
 
 function createGallery({
