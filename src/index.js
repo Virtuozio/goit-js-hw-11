@@ -34,7 +34,7 @@ function onSubmit(e) {
 
   pixabayApiService.searchQuery = inputValue;
 
-  newsApiService.resetPage();
+  pixabayApiService.resetPage();
   clearAll();
   loadMoreBtn.show();
   fetchGallery().finally(() => form.reset());
