@@ -33,6 +33,8 @@ function onSubmit(e) {
   const inputValue = form.elements.searchQuery.value;
 
   pixabayApiService.searchQuery = inputValue;
+
+  newsApiService.resetPage();
   clearAll();
   loadMoreBtn.show();
   fetchGallery().finally(() => form.reset());
