@@ -22,7 +22,11 @@ button {
   border: none;
   border-radius: 0 4px 4px 0;
 }
-
+.link {
+  text-decoration: none;
+  width: calc((100% - 90px) / 4);
+  color: inherit;
+}
 .gallery {
   min-width: 1200px;
   margin: 30px 30px 0 30px;
@@ -32,15 +36,15 @@ button {
 }
 
 .photo-card {
-  width: calc((100% - 90px) / 4);
+  width: 100%;
+  box-shadow: 0px 1px 3px rgb(0 0 0 / 12%), 0px 1px 1px rgb(0 0 0 / 14%),
+    0px 2px 1px rgb(0 0 0 / 20%);
+  border-radius: 4px;
 }
 .info {
   display: flex;
   gap: 20px;
   justify-content: center;
-  box-shadow: 0px 1px 3px rgb(0 0 0 / 12%), 0px 1px 1px rgb(0 0 0 / 14%),
-    0px 2px 1px rgb(0 0 0 / 20%);
-  border-radius: 0 0 4px 4px;
 }
 .info-item {
   display: flex;
